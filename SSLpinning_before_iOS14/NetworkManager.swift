@@ -11,9 +11,8 @@ class NetworkManager: NSObject {
     static let shared = NetworkManager()
     
     var session: URLSession!
-    //  private let localPublicKey = "hBys3wbyNOi6DCnbxljICwobP0q0LS0MbSNuemhq/58="
-    private let localPublicKey = "6SF7P6qyTNv5t4NzsU3v/86X+FczDXwaRGPhQnnY98M="
-    
+    let localPublicKey = Bundle.main.object(forInfoDictionaryKey: "Public-key") as! String
+        
     private let rsa2048Asn1Header:[UInt8] = [
         0x30, 0x82, 0x01, 0x22, 0x30, 0x0d, 0x06, 0x09, 0x2a, 0x86, 0x48, 0x86,
         0xf7, 0x0d, 0x01, 0x01, 0x01, 0x05, 0x00, 0x03, 0x82, 0x01, 0x0f, 0x00
@@ -43,9 +42,7 @@ class NetworkManager: NSObject {
             print("cannot form url")
             return
         }
-        
-        
-        
+                
         session.dataTask(with: url) { data, response, error in
             
             if let error {
